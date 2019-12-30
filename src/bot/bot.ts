@@ -5,9 +5,6 @@ import { join } from 'path';
 import { version } from 'typescript';
 import 'typescript';
 import './lib/env';
-import * as Sentry from '@sentry/node';
-
-Sentry.init({ dsn: process.env.SENTRY_URL });
 
 colors.setTheme({
     debug: 'cyan',
