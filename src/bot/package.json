@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sentry/node": "^5.10.2",
     "@types/common-tags": "^1.8.0",
     "@types/request": "^2.48.4",
     "colors": "^1.4.0",
