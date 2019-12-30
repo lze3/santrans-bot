@@ -14,6 +14,21 @@ const acknowledgements: Array<{ id: string, title: string, type: string}> = [
         id: '264662751404621825',
         title: 'Bot Developer',
         type: 'user'
+    },
+    {
+        id: '196243131102920704',
+        title: 'SanTrans Director',
+        type: 'user'
+    },
+    {
+        id: '240862629512347649',
+        title: 'SanTrans Commissioner',
+        type: 'user'
+    },
+    {
+        id: '619162649091112960',
+        title: 'Server Maintenance and Regulations Enforcement',
+        type: 'role'
     }
 ]
 
@@ -58,6 +73,12 @@ export default class UserInfo extends Command {
                     local_acknowledgements[user.id].push(acknowledgement.title);
                 }
             }
+
+            if (acknowledgement.type === 'role') {
+                if (member.roles.has(acknowledgement.id)) {
+                    local_acknowledgements[user.id].push(acknowledgement.title);
+                }
+            }
         }
 
         if (message.guild.owner?.id === user.id) {
@@ -69,7 +90,7 @@ export default class UserInfo extends Command {
             embed.setThumbnail(user.avatarURL() as string);
         }
 
-        if (member.nickname !== undefined) {
+        if (member.nickname !== null) {
             embed.addField('❯ Nickname', member?.nickname);
         }
 
@@ -95,7 +116,7 @@ export default class UserInfo extends Command {
             embed.addField('❯ User Acknowledgements', local_acknowledgements[user.id].map((title: string) => '• ' + title));
         }
 
-        embed.setColor(message.guild.me?.roles.color!.color);
+        embed.setColor(message.guild.me?.roles.color ? message.guild.me.roles.color!.color : '#ccc');
         if (member.roles.color !== null) {
             embed.setColor(member.roles.color.color);
         }
