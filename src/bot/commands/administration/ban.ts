@@ -46,6 +46,6 @@ export default class Ban extends Command {
                 return message.say('Uh oh! Something went wrong, developer was notified.');
             }
         }
-        return message.say(`***${user.username}#${user.discriminator} was banned for ${reason}!***`);
+        return message.say(`***${user.username}#${user.discriminator} was removed from the guild, reason: ${reason}!***`);
     }
 }
