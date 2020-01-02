@@ -44,7 +44,7 @@ export default class Poll extends Command {
                 console.log(e.stack);
                 return message.reply('something went wrong, sorry!');
             });
-        
+
         return null;
     }
 }
