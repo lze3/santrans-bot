@@ -12,6 +12,7 @@
         "object-literal-sort-keys": false,
         "ordered-imports": false,
         "return-undefined": true,
-        "semicolon": [true, "always"]
+        "semicolon": [true, "always"],
+        "no-trailing-whitespace": true
     }
 }
