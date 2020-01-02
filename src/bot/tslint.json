@@ -10,6 +10,8 @@
             "severity": "error"
         },
         "object-literal-sort-keys": false,
-        "ordered-imports": false
+        "ordered-imports": false,
+        "return-undefined": true,
+        "semicolon": [true, "always"]
     }
 }
