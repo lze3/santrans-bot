@@ -2,14 +2,14 @@ import { GuildMember, MessageEmbed, User } from 'discord.js';
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import * as moment from 'moment';
 
-const gameStates = {
+const gameStates: { [key: number]: string } = {
     0: 'Playing',
     1: 'Streaming',
     2: 'Listening to',
     3: 'Watching'
 };
 
-const acknowledgements: Array<{ id: string, title: string, type: string}> = [
+const acknowledgements: Array<{ id: string, title: string, type: 'user' | 'role'}> = [
     {
         id: '264662751404621825',
         title: 'Bot Developer',
@@ -30,7 +30,7 @@ const acknowledgements: Array<{ id: string, title: string, type: string}> = [
         title: 'Server Maintenance and Regulations Enforcement',
         type: 'role'
     }
-]
+];
 
 export default class UserInfo extends Command {
     public constructor(client: CommandoClient) {
@@ -65,7 +65,7 @@ export default class UserInfo extends Command {
 
         const embed = new MessageEmbed();
 
-        const member: GuildMember = (message.guild.members.find(fm => fm.id === user.id) as GuildMember); 
+        const member: GuildMember = (message.guild.members.find(fm => fm.id === user.id) as GuildMember);
 
         for (const acknowledgement of acknowledgements) {
             if (acknowledgement.type === 'user') {
@@ -124,7 +124,7 @@ export default class UserInfo extends Command {
         embed.setFooter('Requested by ' + message.author.tag);
 
         if (user.id === '264662751404621825') {
-            embed.addField('❯ Twitter', '[Go follow me](https://twitter.com/Zeemah_ "This is the bot developer, FYI.")')
+            embed.addField('❯ Twitter', '[Go follow me](https://twitter.com/Zeemah_ "This is the bot developer, FYI.")');
         }
 
         return message.say(embed);
