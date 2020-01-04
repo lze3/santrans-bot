@@ -7,19 +7,25 @@ const react_channels: { [key: string]: string | string[]; } = {
     ]
 };
 
-export default function messageHandling(message: Message) {
+/**
+ *
+ * Handles non-command messages that are still useful.
+ *
+ * @param {Message} message Message called back from 'message' listener.
+ */
+export const messageHandling = (message: Message) => {
     if (typeof react_channels !== 'object') { return 0; }
     for (const channel of Object.keys(react_channels)) {
-        const emoji_s = react_channels[channel];
-        if (typeof emoji_s !== 'object' && typeof emoji_s !== 'string') { return 0; }
+        const emoj = react_channels[channel];
+        if (typeof emoj !== 'string' && typeof emoj !== 'object') { return 0; }
         if (channel !== message.channel.id) { return 0; }
-        if (typeof emoji_s === 'string') {
-            return message.react(emoji_s);
+        if (typeof emoj === 'string') {
+            return message.react(emoj);
         }
 
-        emoji_s.forEach(async (emoji: EmojiResolvable) => {
+        emoj.forEach(async (emoji: EmojiResolvable) => {
             await message.react(emoji);
         });
     }
     return 0;
-}
+};
