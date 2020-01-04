@@ -1,12 +1,11 @@
 import * as colors from 'colors';
-// import { TextChannel, Message } from 'discord.js';
 import { CommandoClient } from 'discord.js-commando';
 import { join } from 'path';
-// import { version } from 'typescript';
 import 'typescript';
 import './lib/env';
-import commandExecution from './listeners/commandExecution';
-import messageHandling from './listeners/message';
+import { successfulCommandExec, unsuccessfulCommandExec } from './listeners/commandExecution';
+import { commandRegister } from './listeners/commandRegistration';
+import { messageHandling } from './listeners/messageHandling';
 
 colors.setTheme({
     debug: 'cyan',
@@ -30,7 +29,9 @@ client
         console.log(`Prefix is set to: ${prefix}`.cyan);
     })
     .on('message', messageHandling)
-    .on('commandRun', commandExecution)
+    .on('commandRun', successfulCommandExec)
+    .on('commandError', unsuccessfulCommandExec)
+    .on('commandRegister', commandRegister)
     .registry
         .registerDefaultTypes()
         .registerGroups([
