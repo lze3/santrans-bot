@@ -14,8 +14,8 @@ colors.setTheme({
     warn: 'yellow'
 });
 
-const prefix = process.env.PREFIX ?? 'st!';
-export const client = new CommandoClient({
+const prefix: string = process.env.PREFIX ?? 'st!';
+export const client: CommandoClient = new CommandoClient({
     commandPrefix: prefix,
     invite: 'https://discord.gg/SbfA2Sf',
     owner: '264662751404621825'

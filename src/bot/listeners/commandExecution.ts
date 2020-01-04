@@ -10,6 +10,7 @@ import { Command, CommandoMessage, ArgumentCollectorResult } from 'discord.js-co
  * @param fromPattern Pattern that was used to execute command.
  * @param result Result of command.
  */
+// tslint:disable-next-line:typedef
 export const successfulCommandExec = (command: Command, promise: Promise<Command>, message: CommandoMessage, args: object | string | string[], fromPattern: boolean, result?: ArgumentCollectorResult) => {
     console.log(`[CMD SUCCESS] ${message.author.username}#${message.author.discriminator}: ${command.name} from ${command.group.name} - ${message.content}`.green);
 };
@@ -24,6 +25,7 @@ export const successfulCommandExec = (command: Command, promise: Promise<Command
  * @param fromPattern Pattern that was used to execute command.
  * @param result Result of command.
  */
+// tslint:disable-next-line:typedef
 export const unsuccessfulCommandExec = (command: Command, error: Error, message: CommandoMessage, args: object | string | string[], fromPattern: boolean, result?: ArgumentCollectorResult) => {
     console.log('   Error when handling command execution!'.toUpperCase().red);
     console.log(`Command: ${command.name} (${command.group.name})`);

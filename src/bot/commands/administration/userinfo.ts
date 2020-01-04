@@ -58,12 +58,12 @@ export default class UserInfo extends Command {
     public run(message: CommandoMessage, { user }: { user: User }) {
         message.delete();
 
-        const current_date = new Date();
+        const current_date: Date = new Date();
 
         const local_acknowledgements: any = {};
         local_acknowledgements[user.id] = [];
 
-        const embed = new MessageEmbed();
+        const embed: MessageEmbed = new MessageEmbed();
 
         const member: GuildMember = (message.guild.members.find(fm => fm.id === user.id) as GuildMember);
 
@@ -95,19 +95,19 @@ export default class UserInfo extends Command {
         }
 
         if (user.presence !== null) {
-            const status = user.presence.status + (user.presence.activity !== null && user.presence.activity.type !== undefined ? user.presence.activity.type.toLowerCase()[0].toUpperCase() : '');
+            const status: string = user.presence.status + (user.presence.activity !== null && user.presence.activity.type !== undefined ? user.presence.activity.type.toLowerCase()[0].toUpperCase() : '');
             embed.addField('❯ Status', status, true);
         }
 
-        const joined_at = moment(member.joinedAt!);
+        const joined_at: moment.Moment = moment(member.joinedAt!);
         embed.addField('❯ Joined', `${joined_at.format('ddd, MMM D, YYYY H:mm A')} (${moment(current_date).diff(joined_at, 'days')} days ago)`, true);
 
-        const created_at = moment(user.createdAt);
+        const created_at: moment.Moment = moment(user.createdAt);
         embed.addField('❯ Registered', `${created_at.format('ddd, MMM D, YYYY H:mm A')} (${moment(current_date).diff(created_at, 'days')} days ago)`);
 
-        const amount_of_roles = member.roles.array().length - 1;
+        const amount_of_roles: number = member.roles.array().length - 1;
 
-        const roles = amount_of_roles > 0 ?
+        const roles: string = amount_of_roles > 0 ?
             member.roles.map(role => role.name !== '@everyone' ? '<@&' + role.id + '>' : '').join(' ') :
             'This user doesn\'t have any roles.';
         embed.addField(`❯ Roles [${amount_of_roles}]`, roles);

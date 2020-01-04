@@ -1,7 +1,7 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
-import { MessageEmbed, TextChannel } from 'discord.js';
+import { MessageEmbed, TextChannel, GuildChannel, Channel } from 'discord.js';
 
-const report_channel = '635129137450975298';
+const report_channel: string = '635129137450975298';
 export default class Report extends Command {
     constructor(client: CommandoClient) {
         super(client, {
@@ -38,8 +38,8 @@ export default class Report extends Command {
 
     public run(message: CommandoMessage, { name, reason, evidence, additional }: { name: string, reason: string, evidence: string, additional: string }) {
         message.delete();
-        const guild_channel = this.client.channels.find(ch => ch.id === report_channel);
-        const log_channel = message.guild.channels.find(ch => ch.id === '661011416198807602');
+        const guild_channel: Channel|undefined = this.client.channels.find(ch => ch.id === report_channel);
+        const log_channel: GuildChannel|undefined = message.guild.channels.find(ch => ch.id === '661011416198807602');
 
         if (!guild_channel) {
             throw Error('Could not find channel in client\'s collection. This is bad!');
@@ -49,13 +49,12 @@ export default class Report extends Command {
             return message.reply(`Not in report channel. (<#${report_channel}>)`);
         }
 
-        const report_embed = new MessageEmbed()
+        const report_embed: MessageEmbed = new MessageEmbed()
             .setAuthor(`Report from ${message.author.username}#${message.author.discriminator}`, message.author.avatarURL() ?? undefined)
             .addField('Offender\'s Name', name)
             .addField('Report reason', reason)
             .addField('Evidence', evidence);
 
-        const startsWith = additional.startsWith;
         if (!additional.startsWith('no') || !additional.startsWith('n/a')) {
             report_embed.addField('Additional Information', additional);
         }

@@ -7,6 +7,7 @@ import { stripIndents } from 'common-tags';
  * @param command Command object of registered command.
  * @param registry Registry used.
  */
+// tslint:disable-next-line:typedef
 export const commandRegister = (command: Command, registry: CommandoRegistry) => {
     console.log(stripIndents`[CMD REGISTER]
         Name: ${command.name}
