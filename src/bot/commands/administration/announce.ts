@@ -32,12 +32,10 @@ export default class Announce extends Command {
             .setFooter(message.member.roles.hoist?.name ?? 'Staff')
             .setTimestamp();
 
-        const deliminator: string[] = announcement.split(/ +\| +/);
-        if (deliminator[0] !== undefined) {
-            const c: string = 'n78oadamo847oa.c';
-            deliminator[0] += c;
-            embed.setTitle(deliminator[0].replace(c, ''));
-            embed.setDescription(announcement.replace(`${deliminator[0].replace(c, '')} |`, ''));
+        const delimiter: string[] = announcement.split(/ +\| +/);
+        if (delimiter[0] !== undefined) {
+            embed.setTitle(delimiter[0]);
+            embed.setDescription(announcement.slice(delimiter[0].length));
         }
         else {
             embed.setDescription(announcement);
