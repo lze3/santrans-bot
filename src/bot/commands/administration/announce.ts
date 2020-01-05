@@ -36,8 +36,6 @@ export default class Announce extends Command {
         if (deliminator[0] !== undefined) {
             const c: string = 'n78oadamo847oa.c';
             deliminator[0] += c;
-            console.log(deliminator[0]);
-            console.log(announcement);
             embed.setTitle(deliminator[0].replace(c, ''));
             embed.setDescription(announcement.replace(`${deliminator[0].replace(c, '')} |`, ''));
         }
