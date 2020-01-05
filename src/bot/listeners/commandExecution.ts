@@ -12,7 +12,7 @@ import { Command, CommandoMessage, ArgumentCollectorResult } from 'discord.js-co
  */
 // tslint:disable-next-line:typedef
 export const successfulCommandExec = (command: Command, promise: Promise<Command>, message: CommandoMessage, args: object | string | string[], fromPattern: boolean, result?: ArgumentCollectorResult) => {
-    console.log(`[CMD SUCCESS] ${message.author.username}#${message.author.discriminator}: ${command.name} from ${command.group.name} - ${message.content}`.green);
+    console.log(`[CMD SUCCESS] ${message.author.username}#${message.author.discriminator}: ${command.name} from ${command.group.id} - ${message.content}`.green);
 };
 
 /**
@@ -28,7 +28,7 @@ export const successfulCommandExec = (command: Command, promise: Promise<Command
 // tslint:disable-next-line:typedef
 export const unsuccessfulCommandExec = (command: Command, error: Error, message: CommandoMessage, args: object | string | string[], fromPattern: boolean, result?: ArgumentCollectorResult) => {
     console.log('   Error when handling command execution!'.toUpperCase().red);
-    console.log(`Command: ${command.name} (${command.group.name})`);
+    console.log(`Command: ${command.name} (${command.group.id})`);
     console.log(`Message content: ${message.content}`);
     console.log(`Arguments: ${args.toString()}`);
     console.log(`Stacktrace: ${error.stack}`);
