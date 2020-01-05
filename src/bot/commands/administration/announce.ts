@@ -1,5 +1,5 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
-import { MessageEmbed } from 'discord.js';
+import { MessageEmbed, Message } from 'discord.js';
 
 export default class Announce extends Command {
     constructor(client: CommandoClient) {
@@ -25,16 +25,16 @@ export default class Announce extends Command {
     public run(message: CommandoMessage, { announcement }: { announcement: string }) {
         message.delete();
 
-        const embed = new MessageEmbed()
+        const embed: MessageEmbed = new MessageEmbed()
             .setAuthor(`Department announcement from ${message.author.username}`, message.author.avatarURL() ?? undefined)
             .setDescription(announcement)
             .setColor('#FFC600')
             .setFooter(message.member.roles.hoist?.name ?? 'Staff')
             .setTimestamp();
 
-        const deliminator = announcement.split(/ +\| +/);
+        const deliminator: string[] = announcement.split(/ +\| +/);
         if (deliminator[0] !== undefined) {
-            const c = 'n78oadamo847oa.c';
+            const c: string = 'n78oadamo847oa.c';
             deliminator[0] += c;
             console.log(deliminator[0]);
             console.log(announcement);
