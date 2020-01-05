@@ -27,6 +27,7 @@ client
     .once('ready', () => {
         console.log(`Logged in as ${client.user?.tag}! (${client.user?.id})`.green);
         console.log(`Prefix is set to: ${prefix}`.cyan);
+        client.user?.setActivity(`Recruiting SanTrans Personnel!`);
     })
     .on('message', messageHandling)
     .on('commandRun', successfulCommandExec)
