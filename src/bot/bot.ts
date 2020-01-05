@@ -37,8 +37,7 @@ client
         .registerGroups([
             ['misc', 'Miscellaneous commands that don\'t fit in other groups.'],
             ['information', 'Commands that provide useful information to the user.'],
-            ['admin', 'Commands to help administration give out information and perform their tasks more easily.'],
-            // ['fivem', 'Commands that are related to FiveM.']
+            ['admin', 'Commands to help administration give out information and perform their tasks more easily.']
         ])
         .registerDefaultGroups()
         .registerDefaultCommands({
