@@ -39,6 +39,9 @@ export default class Announce extends Command {
             embed.setTitle(deliminator[0].replace(c, ''));
             embed.setDescription(announcement.replace(`${deliminator[0].replace(c, '')} |`, ''));
         }
+        else {
+            embed.setDescription(announcement);
+        }
 
         return message.say(embed);
     }
