@@ -1,7 +1,7 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { MessageEmbed, GuildMember, ColorResolvable } from 'discord.js';
 import { stripIndents } from 'common-tags';
-import * as ms from 'pretty-ms';
+import ms from 'pretty-ms';
 
 export default class extends Command {
     constructor(client: CommandoClient) {
