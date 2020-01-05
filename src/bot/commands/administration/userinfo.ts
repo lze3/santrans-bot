@@ -1,6 +1,8 @@
 import { GuildMember, MessageEmbed, User } from 'discord.js';
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
-import * as moment from 'moment';
+// import * as moment from 'moment';
+import moment from 'moment';
+import { capitalize } from '../../util/functions';
 
 const gameStates: { [key: number]: string } = {
     0: 'Playing',
@@ -60,12 +62,16 @@ export default class UserInfo extends Command {
 
         const current_date: Date = new Date();
 
-        const local_acknowledgements: any = {};
+        const local_acknowledgements: { [key: string]: string[] } = {};
         local_acknowledgements[user.id] = [];
 
         const embed: MessageEmbed = new MessageEmbed();
 
-        const member: GuildMember = (message.guild.members.find(fm => fm.id === user.id) as GuildMember);
+        const member: GuildMember|undefined = message.guild.members.find(fm => fm.id === user.id);
+
+        if (!(member instanceof GuildMember)) {
+            return null;
+        }
 
         for (const acknowledgement of acknowledgements) {
             if (acknowledgement.type === 'user') {
@@ -95,7 +101,7 @@ export default class UserInfo extends Command {
         }
 
         if (user.presence !== null) {
-            const status: string = user.presence.status + (user.presence.activity !== null && user.presence.activity.type !== undefined ? user.presence.activity.type.toLowerCase()[0].toUpperCase() : '');
+            const status: string = user.presence.status.length > 3 ? capitalize(user.presence.status) : user.presence.status.toUpperCase();
             embed.addField('❯ Status', status, true);
         }
 
