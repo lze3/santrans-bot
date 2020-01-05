@@ -1,1 +1,1 @@
-export const wait = (ms: number) => new Promise(res => setTimeout(res, ms));
+export const wait: any = (ms: number) => new Promise(res => setTimeout(res, ms));
