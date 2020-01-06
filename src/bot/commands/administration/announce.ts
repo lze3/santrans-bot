@@ -32,8 +32,9 @@ export default class Announce extends Command {
             .setFooter(message.member.roles.hoist?.name ?? 'Staff')
             .setTimestamp();
 
-        const delimiter: string[] = announcement.split(/ +\| +/);
-        if (delimiter[0] !== undefined) {
+        const delimiter: string[] = announcement.split(/ +\| +/g);
+        console.log(delimiter[0], typeof delimiter[0]);
+        if (delimiter[1] !== undefined) {
             embed.setTitle(delimiter[0]);
             embed.setDescription(announcement.slice(delimiter[0].length + 2));
         }
