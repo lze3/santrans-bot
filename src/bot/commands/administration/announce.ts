@@ -26,7 +26,7 @@ export default class Announce extends Command {
         message.delete();
 
         const embed: MessageEmbed = new MessageEmbed()
-            .setAuthor(`Department announcement from ${message.author.username}`, message.author.avatarURL() ?? undefined)
+            .setAuthor(`Department Announcement from ${message.author.username}`, message.author.avatarURL() ?? undefined)
             .setDescription(announcement)
             .setColor('#FFC600')
             .setFooter(message.member.roles.hoist?.name ?? 'Staff')
@@ -35,7 +35,7 @@ export default class Announce extends Command {
         const delimiter: string[] = announcement.split(/ +\| +/);
         if (delimiter[0] !== undefined) {
             embed.setTitle(delimiter[0]);
-            embed.setDescription(announcement.slice(delimiter[0].length));
+            embed.setDescription(announcement.slice(delimiter[0].length + 2));
         }
         else {
             embed.setDescription(announcement);
