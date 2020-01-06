@@ -11,7 +11,7 @@ const gameStates: { [key: number]: string } = {
     3: 'Watching'
 };
 
-const acknowledgements: Array<{ id: string, title: string, type: 'user' | 'role'}> = [
+const acknowledgements: Array<{ id: string|string[], title: string, type: 'user' | 'role'}> = [
     {
         id: '264662751404621825',
         title: 'Bot Developer',
@@ -28,7 +28,7 @@ const acknowledgements: Array<{ id: string, title: string, type: 'user' | 'role'
         type: 'user'
     },
     {
-        id: '619162649091112960',
+        id: ['520504449119289344', '619162649091112960'],
         title: 'Server Maintenance and Regulations Enforcement',
         type: 'role'
     }
@@ -70,10 +70,10 @@ export default class UserInfo extends Command {
         const member: GuildMember|undefined = message.guild.members.find(fm => fm.id === user.id);
 
         if (!(member instanceof GuildMember)) {
-            return null;
+            return message.reply('I couldn\'t find that member.');
         }
 
-        for (const acknowledgement of acknowledgements) {
+        for (const [key, acknowledgement] of Object.entries(acknowledgements)) {
             if (acknowledgement.type === 'user') {
                 if (user.id === acknowledgement.id) {
                     local_acknowledgements[user.id].push(acknowledgement.title);
@@ -81,8 +81,17 @@ export default class UserInfo extends Command {
             }
 
             if (acknowledgement.type === 'role') {
-                if (member.roles.has(acknowledgement.id)) {
-                    local_acknowledgements[user.id].push(acknowledgement.title);
+                if (typeof acknowledgement.id === 'object') {
+                    for (const [i, roleId] of Object.entries(acknowledgement.id)) {
+                        if (member.roles.has(roleId)) {
+                            local_acknowledgements[user.id].push(acknowledgement.title);
+                        }
+                    }
+                }
+                else {
+                    if (member.roles.has(acknowledgement.id)) {
+                        local_acknowledgements[user.id].push(acknowledgement.title);
+                    }
                 }
             }
         }
