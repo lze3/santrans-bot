@@ -1,6 +1,6 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { MessageEmbed, Message, GuildChannel, TextChannel } from 'discord.js';
-const st_url: string = 'https://i.imgur.com/Q4Uibii.png';
+import { st_url } from '../../util/functions';
 
 export default class Poll extends Command {
     constructor(client: CommandoClient) {
