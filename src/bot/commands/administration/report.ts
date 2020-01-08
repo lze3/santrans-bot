@@ -1,5 +1,7 @@
 import { Command, CommandoClient, CommandoMessage } from 'discord.js-commando';
 import { MessageEmbed, TextChannel, GuildChannel, Channel } from 'discord.js';
+import { st_url } from '../../util/functions';
+import { stripIndents } from 'common-tags';
 
 const report_channel: string = '635129137450975298';
 export default class Report extends Command {
@@ -29,7 +31,7 @@ export default class Report extends Command {
                 },
                 {
                     key: 'additional',
-                    prompt: 'If you would like to add any additional information, please state so here.',
+                    prompt: 'If you would like to add any additional information, please state so here. If not, reply with \'no\'.',
                     type: 'string'
                 }
             ]
@@ -45,15 +47,25 @@ export default class Report extends Command {
             throw Error('Could not find channel in client\'s collection. This is bad!');
         }
 
-        if (message.channel !== guild_channel) {
+        if (message.channel.id !== guild_channel.id) {
             return message.reply(`Not in report channel. (<#${report_channel}>)`);
         }
+
+        console.timeline('meow');
 
         const report_embed: MessageEmbed = new MessageEmbed()
             .setAuthor(`Report from ${message.author.username}#${message.author.discriminator}`, message.author.avatarURL() ?? undefined)
             .addField('Offender\'s Name', name)
             .addField('Report reason', reason)
             .addField('Evidence', evidence);
+
+        const replying_embed: MessageEmbed = new MessageEmbed()
+            .setAuthor('Report confirmation', st_url)
+            .setDescription(stripIndents`Thank you for the report. We take reports very seriously. If necessary, you will be contacted for
+                additional information regarding this report. If there is anything else you would like to add, please contact a supervisor to let
+                them know.`)
+            .setFooter('SanTrans Automation')
+            .setTimestamp();
 
         if (!additional.startsWith('no') || !additional.startsWith('n/a')) {
             report_embed.addField('Additional Information', additional);
@@ -68,7 +80,10 @@ export default class Report extends Command {
             return message.reply('could not find log channel, but I\'ve still logged the information.');
         }
 
-        message.author.send('thanks for the report.');
+        console.timelineEnd('end meow');
+
+        message.channel.bulkDelete(message.channel.messages.array().length).then(_ => _).catch(_ => _);
+        message.author.send(replying_embed);
         return log_channel.send(report_embed);
     }
 }
