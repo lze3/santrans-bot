@@ -1,5 +1,5 @@
 import { Command, CommandoRegistry } from 'discord.js-commando';
-import { stripIndents } from 'common-tags';
+import { callbackify } from 'util';
 
 /**
  * Handles any command registered.
@@ -9,10 +9,10 @@ import { stripIndents } from 'common-tags';
  */
 // tslint:disable-next-line:typedef
 export const commandRegister = (command: Command, registry: CommandoRegistry) => {
-    console.log(stripIndents`[CMD REGISTER]
-        Name: ${command.name}
-        Group: ${command.group.id}
-        Member Name: ${command.memberName}
-        NSFW?: ${command.nsfw ? 'Yes' : 'No'}
-        Guild only?: ${command.guildOnly ? 'Yes' : 'No'}\n`.green);
+    console.log('[CMD REGISTER] \n'.green +
+        'Name: %s\n'.green +
+        'Group: %s\n'.green +
+        'Member Name: %s\n'.green +
+        'NSFW?: %s\n'.green +
+        'Guild only?: %s\n'.green, command.name, command.group.id, command.memberName, command.nsfw ? 'Yes' : 'No', command.guildOnly ? 'Yes' : 'No');
 };
