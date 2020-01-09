@@ -51,7 +51,7 @@ export default class Report extends Command {
             return message.reply(`Not in report channel. (<#${report_channel}>)`);
         }
 
-        console.timeline('meow');
+        console.time('meow');
 
         const report_embed: MessageEmbed = new MessageEmbed()
             .setAuthor(`Report from ${message.author.username}#${message.author.discriminator}`, message.author.avatarURL() ?? undefined)
@@ -80,10 +80,18 @@ export default class Report extends Command {
             return message.reply('could not find log channel, but I\'ve still logged the information.');
         }
 
-        console.timelineEnd('end meow');
+        console.timeEnd('meow');
 
-        message.channel.bulkDelete(message.channel.messages.array().length).then(_ => _).catch(_ => _);
-        message.author.send(replying_embed);
+        message.channel.bulkDelete(message.channel.messages.array().length)
+            .then(_ => _)
+            .catch(_ => console.log('Something went wrong when attempting to bulk delete on %s, but it\'s caught, so just ignore it',
+            // casting message.channel is safe here because message.channel won't be DMChannel because of the 'guildOnly' setting
+            (message.channel as TextChannel).name));
+
+        message.author.send(replying_embed)
+            .then(_ => _)
+            .catch(e => console.log('Tried DMing %s, but failed. Probably has DMs disabled or so.', message.author.username + '#' + message.author.discriminator));
+
         return log_channel.send(report_embed);
     }
 }
