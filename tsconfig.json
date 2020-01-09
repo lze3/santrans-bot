@@ -5,6 +5,7 @@
 		"declaration": false,
 		"removeComments": false,
 		"alwaysStrict": true,
-		"pretty": true
+		"pretty": true,
+		"sourceMap": true
 	}
 }
